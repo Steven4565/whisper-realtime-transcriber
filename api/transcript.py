@@ -1,4 +1,4 @@
-from utils.whisperModel import whisperModelInstance
+from utils.WhisperModel import whisperModelInstance
 from flask import request
 from flask_restful import Resource
 from utils.encoder import Base64Encoder
