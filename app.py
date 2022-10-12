@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from api import transcript, grammar
-from utils.whisperModel import whisperModelInstance
+from utils.WhisperModel import whisperModelInstance
 from dotenv import load_dotenv
 import os
 
