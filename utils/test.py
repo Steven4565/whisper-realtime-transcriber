@@ -46,22 +46,19 @@ class unit_test(Model):
 
     def __test_encoder(self, audio_path: str):
         audio_byte = self.__read_audio(audio_path)
-        timer_start = timeit.default_timer()
-        prediction = super().encode(audio_byte)
-        timer_end = timeit.default_timer()
-        elapsed_time = round(timer_end - timer_start, 2)
+        prediction = super().encode(audio_byte)       
         ground_truth = whisper.load_audio(audio_path)
 
         if (prediction == ground_truth).all():
-            print(f"Encoder: Passed!\t{elapsed_time}s")
+            print(f"Encoder: Passed!")
         else:
-            print(f"Encoder: Not Passed!\t{elapsed_time}s\nPrediction: \n{prediction}\nGround Truth:\n{ground_truth}\n\n")
+            print(f"Encoder: Not Passed!\nPrediction: \n{prediction}\nGround Truth:\n{ground_truth}\n\n")
 
         return prediction
         
     def __test_prediction(self, audio: numpy.ndarray):
         prediction, t = super().predict(audio)
-        print(f"Prediction: {prediction}\t{t}s")
+        print(f"Prediction: {prediction.text}\t{t}s")
 
 if __name__ == "__main__":
     # Unit Test
