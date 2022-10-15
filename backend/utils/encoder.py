@@ -15,12 +15,3 @@ class Base64Encoder:
     def decode(audioPath, encodedFile):
         with open(os.path.join(folder, audioPath), 'wb') as audioFile:
             audioFile.write(base64.b64decode(encodedFile))
-
-
-# Test encode
-# Base64Encoder.encode("../resources/recording.mp3",
-#                      "../resources/recording.txt")
-
-# Test decode
-# with open(os.path.join(folder, "../resources/recording.txt"), 'rb') as textFile:
-#     Base64Encoder.decode("../resources/recordingDecoded.mp3", textFile.read())
