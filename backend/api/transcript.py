@@ -7,11 +7,13 @@ import os
 
 class Transcript(Resource):
     def post(self):
+        # get data from request
         data = request.data.decode("utf-8")
+        # decode data into byte-array
         RECORDING_PATH = os.path.join(
             os.getcwd(), 'resources', 'recording.mp3')
         Base64Encoder.decode(RECORDING_PATH, data)
+        # transcribe the audio
+        transcript = whisperModelInstance.transcribe(RECORDING_PATH).text
 
-        transcript = whisperModelInstance.transcribe_file(RECORDING_PATH)
-        print(transcript["text"])
-        return transcript["text"]
+        return transcript
