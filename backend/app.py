@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
 from api import transcript, grammar
-from utils.WhisperModel import whisperModelInstance
 from dotenv import load_dotenv
 import os
 
@@ -10,8 +9,6 @@ load_dotenv(dotenv_path)
 
 app = Flask('whisperapi')
 api = Api(app)
-
-whisperModelInstance.init_whisper()
 
 api.add_resource(transcript.Transcript, '/transcript')
 api.add_resource(grammar.GrammarCorrector, '/grammar')
