@@ -1,7 +1,6 @@
 import { ReactMic, ReactMicStopEvent } from 'react-mic';
 import { Component } from 'react';
 import { blobToBase64 } from '../utils/blobToBase64';
-import { stat } from 'fs';
 
 export class Example extends Component<{}, {record:boolean, buffer: Array<Blob>, timestamp: number}> {
   constructor(props: any) {
@@ -43,9 +42,8 @@ export class Example extends Component<{}, {record:boolean, buffer: Array<Blob>,
         body: await blobToBase64(blob)
     });
 
-    console.log("send data: ", await blob.arrayBuffer());
-
     this.setState(() => { return {
+      // buffer: [],
       timestamp: currentTimestamp
     };}); 
   }
