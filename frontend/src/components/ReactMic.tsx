@@ -1,11 +1,13 @@
 import { ReactMic, ReactMicStopEvent } from 'react-mic';
 import React from 'react';
 
-export class Example extends React.Component<{}, {record:boolean}> {
+export class Example extends React.Component<{}, {record:boolean, buffer: string, timestamp:number}> {
   constructor(props: any) {
     super(props);
     this.state = {
       record: false,
+      buffer: "",
+      timestamp: Date.now(),
     };
   }
 
@@ -17,8 +19,14 @@ export class Example extends React.Component<{}, {record:boolean}> {
     this.setState({ record: false });
   };
 
-  onData(recordedBlob:Blob) {
-    (async function (){
+  async onData(recordedBlob:Blob) {
+    const blobText = await recordedBlob.text();
+
+    this.setState((state) => { return {
+      buffer: state.buffer + blobText,
+    };});
+
+    if (Date.now() !== this.state.timestamp) {
       var reader = new FileReader();
       reader.readAsDataURL(recordedBlob); 
       reader.onloadend = function() {
@@ -32,7 +40,7 @@ export class Example extends React.Component<{}, {record:boolean}> {
           body: base64data
         });
       }
-    })()
+    }
   }
 
   onStop(recordedBlob:ReactMicStopEvent) {
