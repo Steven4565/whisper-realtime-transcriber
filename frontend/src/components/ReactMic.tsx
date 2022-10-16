@@ -19,8 +19,19 @@ export class Example extends React.Component<{}, {record:boolean}> {
 
   onData(recordedBlob:Blob) {
     (async function (){
-      const blobText:string = await recordedBlob.text();
-      console.log('chunk of real-time data is: ', blobText);
+      var reader = new FileReader();
+      reader.readAsDataURL(recordedBlob); 
+      reader.onloadend = function() {
+        var base64data = reader.result;                
+        fetch("http://localhost:5000/transcript", {
+          method: "POST", 
+          mode: "cors",
+          headers: {
+            "Content-Type": "text/plain"
+          },
+          body: base64data
+        });
+      }
     })()
   }
 

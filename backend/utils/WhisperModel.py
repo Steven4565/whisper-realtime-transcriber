@@ -48,3 +48,4 @@ class Model:
         return self.predict(encoded_audio)
 
 whisperModelInstance = Model('small')
+print("Model Loaded!")
